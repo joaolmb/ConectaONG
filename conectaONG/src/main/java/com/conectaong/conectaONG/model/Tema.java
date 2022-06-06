@@ -39,5 +39,4 @@ public class Tema {
 		this.quant_postagens = quant_postagens;
 	}
 	
-	
 }
