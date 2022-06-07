@@ -1,11 +1,17 @@
 package com.conectaong.conectaONG.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tb_temas")
@@ -20,23 +26,41 @@ public class Tema {
 	
 	private Long quant_postagens;
 	
+	@OneToMany(mappedBy = "tema", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("tema")
+	private List<Postagem> postagem;
+	
+	
 	public Long getId() {
 		return id;
 	}
+	
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
 	public String getTema() {
 		return tema;
 	}
+	
 	public void setTema(String tema) {
 		this.tema = tema;
 	}
+	
 	public Long getQuant_postagens() {
 		return quant_postagens;
 	}
+	
 	public void setQuant_postagens(Long quant_postagens) {
 		this.quant_postagens = quant_postagens;
 	}
-	
+
+	public List<Postagem> getPostagem() {
+		return postagem;
+	}
+
+	public void setPostagem(List<Postagem> postagem) {
+		this.postagem = postagem;
+	}
+
 }

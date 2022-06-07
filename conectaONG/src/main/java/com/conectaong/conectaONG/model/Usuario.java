@@ -1,5 +1,7 @@
 package com.conectaong.conectaONG.model;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,7 +33,7 @@ public class Usuario {
 
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("usuario")
-	private Postagem postagem;
+	private List<Postagem> postagem;
 
 	public Long getId() {
 		return id;
@@ -73,12 +75,12 @@ public class Usuario {
 		this.senha = senha;
 	}
 
-	public Postagem getPostagem() {
+	public List<Postagem> getPostagem() {
 		return postagem;
 	}
 
-	public void setPostagem(Postagem postagem) {
+	public void setPostagem(List<Postagem> postagem) {
 		this.postagem = postagem;
 	}
-
+	
 }
