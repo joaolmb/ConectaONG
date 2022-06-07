@@ -1,5 +1,6 @@
 package com.conectaong.conectaONG.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tb_usuario")
@@ -19,13 +22,15 @@ public class Usuario {
 	private String nome;
 
 	@NotNull
-	private String userMail;
+	private String usuario;
 
-	private String profilePhoto;
+	private String foto;
 
-	private String password;
+	@NotNull
+	private String senha;
 
-	@OneToMany
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("usuario")
 	private Postagem postagem;
 
 	public Long getId() {
@@ -44,28 +49,28 @@ public class Usuario {
 		this.nome = nome;
 	}
 
-	public String getUserMail() {
-		return userMail;
+	public String getUsuario() {
+		return usuario;
 	}
 
-	public void setUserMail(String userMail) {
-		this.userMail = userMail;
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
 	}
 
-	public String getProfilePhoto() {
-		return profilePhoto;
+	public String getFoto() {
+		return foto;
 	}
 
-	public void setProfilePhoto(String profilePhoto) {
-		this.profilePhoto = profilePhoto;
+	public void setFoto(String foto) {
+		this.foto = foto;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getSenha() {
+		return senha;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public Postagem getPostagem() {
