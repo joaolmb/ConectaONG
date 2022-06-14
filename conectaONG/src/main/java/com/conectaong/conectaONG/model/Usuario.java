@@ -44,6 +44,8 @@ public class Usuario {
 		this.foto = foto;
 		this.senha = senha;
 	}
+	
+	public Usuario() {}
 
 	public Long getId() {
 		return id;
