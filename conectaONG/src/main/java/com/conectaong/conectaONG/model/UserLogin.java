@@ -13,6 +13,16 @@ public class UserLogin {
 	private String foto;
 	
 	private String token;
+	
+
+	public UserLogin(Long id, String nome, String usuario, String senha, String foto) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.usuario = usuario;
+		this.senha = senha;
+		this.foto = foto;
+	}
 
 	public Long getId() {
 		return id;
