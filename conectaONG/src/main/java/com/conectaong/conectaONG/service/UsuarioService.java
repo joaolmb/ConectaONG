@@ -21,39 +21,34 @@ public class UsuarioService {
 	private UsuarioRepository repository;
 	
 	public Optional<Usuario> cadastrarUsuario(Usuario usuario) {
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		
 		if(repository.findByUsuario(usuario.getUsuario()).isPresent()) {
 			return Optional.empty();
 		}
 		
-		String senhaEncoder = encoder.encode(usuario.getSenha());
-		usuario.setSenha(senhaEncoder);
+		usuario.setSenha(criptografarSenha(usuario.getSenha()));
 		
 		return Optional.of(repository.save(usuario));
-		//return repository.save(usuario);
 	}
 	
 	public Optional<UserLogin> autenticarUsuario(Optional<UserLogin> user){
 		
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		Optional<Usuario> usuario = repository.findByUsuario(user.get().getUsuario());
 		
 		if(usuario.isPresent()) {
-			if(encoder.matches(user.get().getSenha(),usuario.get().getSenha())) {
-				String auth = user.get().getUsuario() + ":" + user.get().getSenha();
-				byte[] encodedAuth  = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
-				String authHeader = "Basic " + new String(encodedAuth);
+			if(compararSenhas(user.get().getSenha(),usuario.get().getSenha())) {
 				
-				user.get().setToken(authHeader);
+				user.get().setId(usuario.get().getId());
+				user.get().setToken(gerarBasicToken(user.get().getUsuario(), user.get().getSenha()));
 				user.get().setNome(usuario.get().getNome());
+				user.get().setFoto(usuario.get().getFoto());
+				user.get().setSenha(usuario.get().getSenha());
 				
 				return user;
 			}
 		}
 		
 		return Optional.empty();
-		//return null;
 	}
 	
 	public Optional<Usuario> atualizarUsuario(Usuario usuario){
@@ -67,14 +62,29 @@ public class UsuarioService {
 				}
 			}
 			
-			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-			
-			String senhaEncoder = encoder.encode(usuario.getSenha());
-			usuario.setSenha(senhaEncoder);
+			usuario.setSenha(criptografarSenha(usuario.getSenha()));
 			
 			return Optional.of(repository.save(usuario));
 		}
 	
 		return Optional.empty();
+	}
+	
+	private String criptografarSenha(String senha) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		return encoder.encode(senha);
+	}
+	
+	
+	private boolean compararSenhas(String senhaDigitada, String senhaBanco) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		return encoder.matches(senhaDigitada, senhaBanco);
+	}
+	
+	
+	private String gerarBasicToken(String usuario, String senha) {
+		String tokenBase = usuario + ":" + senha;
+		byte[] tokenBase64 = Base64.encodeBase64(tokenBase.getBytes(Charset.forName("US-ASCII")));
+		return "Basic " + new String(tokenBase64);
 	}
 }
