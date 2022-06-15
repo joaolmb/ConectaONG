@@ -49,7 +49,7 @@ public class UsuarioControllerTest {
 	public void deveCriarUmUsuario() {
 		
 		HttpEntity<Usuario> requisicao = new HttpEntity<Usuario>(new Usuario(0L,
-				"Silvio ","silvio@email.com","silvio123","https://i.imgur.com/JR7kUFU.jpg"));
+				"Silvio Mauricio","silvio@email.com","silvio123","https://i.imgur.com/JR7kUFU.jpg"));
 		
 		ResponseEntity<Usuario> resposta = testRestTemplate.exchange(
 				"/usuarios/cadastrar", HttpMethod.POST,requisicao,Usuario.class);
@@ -94,8 +94,8 @@ public class UsuarioControllerTest {
 				.exchange("/usuarios/atualizar", HttpMethod.PUT,requisicao,Usuario.class);
 		
 		assertEquals(HttpStatus.OK, resposta.getStatusCodeValue());
-		assertEquals(usuarioUpdate.getNome(),resposta.getBody().getNome());
-		assertEquals(usuarioUpdate.getUsuario(),resposta.getBody().getUsuario());
+		assertEquals(requisicao.getBody().getNome(),resposta.getBody().getNome());
+		assertEquals(requisicao.getBody().getUsuario(),resposta.getBody().getUsuario());
 	}
 	
 	@Test
