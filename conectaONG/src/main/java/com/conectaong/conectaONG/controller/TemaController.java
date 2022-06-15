@@ -21,7 +21,7 @@ import com.conectaong.conectaONG.model.Tema;
 import com.conectaong.conectaONG.repository.TemaRepository;
 
 @RestController
-@CrossOrigin("*") //precisa colocar o "allowedHeaders"?
+@CrossOrigin("*")
 @RequestMapping("/tema")
 public class TemaController {
 	
@@ -37,7 +37,6 @@ public class TemaController {
 	public ResponseEntity<Tema> getById(@PathVariable Long id){
 		return repository.findById(id).map(resposta->ResponseEntity.ok(resposta))
 				.orElse(ResponseEntity.notFound().build());
-		//Build? Map?
 	}
 	
 		
