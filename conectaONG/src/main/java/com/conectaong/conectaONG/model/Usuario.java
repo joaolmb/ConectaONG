@@ -27,22 +27,21 @@ public class Usuario {
 	@NotNull
 	private String usuario;
 
-	private String foto;
-
 	@NotNull
 	private String senha;
 
-	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+	private String foto;
+	
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("usuario")
 	private List<Postagem> postagem;
 
-	public Usuario(Long id, @NotNull String nome, @NotNull String usuario, String foto, @NotNull String senha) {
-		super();
+	public Usuario(Long id, String nome, String usuario, String senha, String foto) {
 		this.id = id;
 		this.nome = nome;
 		this.usuario = usuario;
-		this.foto = foto;
 		this.senha = senha;
+		this.foto = foto;
 	}
 	
 	public Usuario() {}
@@ -71,6 +70,10 @@ public class Usuario {
 		this.usuario = usuario;
 	}
 
+	public String getSenha() {
+		return senha;
+	}
+
 	public String getFoto() {
 		return foto;
 	}
@@ -78,11 +81,7 @@ public class Usuario {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
-
-	public String getSenha() {
-		return senha;
-	}
-
+	
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}

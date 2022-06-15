@@ -93,7 +93,7 @@ public class UsuarioControllerTest {
 				.withBasicAuth("root", "root")
 				.exchange("/usuarios/atualizar", HttpMethod.PUT,requisicao,Usuario.class);
 		
-		assertEquals(HttpStatus.OK, resposta.getStatusCodeValue());
+		assertEquals(HttpStatus.OK, resposta.getStatusCode());
 		assertEquals(requisicao.getBody().getNome(),resposta.getBody().getNome());
 		assertEquals(requisicao.getBody().getUsuario(),resposta.getBody().getUsuario());
 	}
@@ -125,7 +125,7 @@ public class UsuarioControllerTest {
 		
 		ResponseEntity<String> resposta = testRestTemplate
 				.withBasicAuth("root", "root")
-				.exchange("/usuarios" + usuarioProcura.get().getId(), HttpMethod.GET, null, String.class);
+				.exchange("/usuarios/" + usuarioProcura.get().getId(), HttpMethod.GET, null, String.class);
 		
 		assertEquals(HttpStatus.OK, resposta.getStatusCode());
 	}
@@ -139,11 +139,12 @@ public class UsuarioControllerTest {
 				"Matheus Chaves", "matheus_chaves@email.com","creatina","https://i.imgur.com/Sk5SjWE.jpg"));
 		
 		HttpEntity<UserLogin> requisicao = new HttpEntity<UserLogin>(new UserLogin(0L,
-				"","matheus_chaves@email.com","creatina","",""));
+				"", "matheus_chaves@email.com","creatina","",""));
 	
 		ResponseEntity<UserLogin> resposta = testRestTemplate
 				.exchange("/usuarios/logar", HttpMethod.POST, requisicao, UserLogin.class);
 		
 		assertEquals(HttpStatus.OK, resposta.getStatusCode());
 	}
+	
 }
