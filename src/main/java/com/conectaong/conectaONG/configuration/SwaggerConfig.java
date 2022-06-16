@@ -19,7 +19,7 @@ public class SwaggerConfig {
 	public OpenAPI springBlogPessoalOpenAPI() {
 		return new OpenAPI()
 				.info(new Info()
-					.title("Projeto Integrador")
+					.title("ConectaONG")
 					.description("Projeto Integrador - Generation Brasil")
 					.version("v0.0.1")
 				.license(new License()
@@ -27,11 +27,11 @@ public class SwaggerConfig {
 					.url("https://brazil.generation.org/"))
 				.contact(new Contact()
 					.name("ConectaONG")
-					.url("https://github.com/conectaongT52")
+					.url("https://github.com/joaolmb/ConectaONG")
 					.email("conectaong.gen@gmail")))
 				.externalDocs(new ExternalDocumentation()
 					.description("Github")
-					.url("https://github.com/conectaongT52"));
+					.url("https://github.com/joaolmb/ConectaONG"));
 
 	}
 	
