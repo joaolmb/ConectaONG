@@ -31,7 +31,7 @@ public class Postagem {
 	private String mensagem;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date data; // new java.sql.Date(System.currentTimeMillis());
+	private Date data =  new java.sql.Date(System.currentTimeMillis());
 	
 	private String contato;
 	
